@@ -13,11 +13,16 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                .sessionManagement((auth) -> auth
+                        .maximumSessions(1)
+                        .maxSessionsPreventsLogin(true))
+
                 .authorizeHttpRequests((authorize) -> authorize
                         .requestMatchers("/test").authenticated()
                         .requestMatchers("/admin").hasRole("ADMIN")
                         .anyRequest().permitAll()
                 )
+
                 .formLogin(form -> form
                         .loginPage("/login")
                         .permitAll()
