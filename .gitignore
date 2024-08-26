@@ -36,5 +36,5 @@ out/
 ### VS Code ###
 .vscode/
 
-### resources/ 아래 .properties 무시 ###
-resources/*.properties
+### .run 무시 ###
+.run
