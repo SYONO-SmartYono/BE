@@ -2,6 +2,19 @@ logging:
   level:
     org.hibernate.SQL: DEBUG
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+#    root: DEBUG
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ENC(xLpZHMkrTuqdT9NkmttvVeOPD+n4pgnCXBEGdv7CDo8ebW4jpPr2jfun6qUjmHGIQUjBPKl9D7ZPLsatvBvH6MdhFZDOfRhrT/J9N9ONMBHdDGMq3uy1UQ==)
+    username: ENC(vrL9TwKqOlu/MWgi9xLopg==)
+    password: ENC(s8y1RE5McsBd7bXnjiOqmjUM7pZOFahF)
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
 
 jasypt:
   encryptor:

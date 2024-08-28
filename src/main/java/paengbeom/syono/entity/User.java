@@ -18,7 +18,7 @@ public class User extends BaseEntiry {
     @Column(name = "USERS_ID", nullable = false)
     private Long id;
 
-    @Column(name = "EMAIL", nullable = false)
+    @Column(name = "EMAIL", nullable = false, unique = true)
     private String email;
 
     @Column(name = "PASSWORD", nullable = false)
