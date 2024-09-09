@@ -2,11 +2,13 @@ package paengbeom.syono.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -18,7 +20,7 @@ public class SecurityConfig {
 
                 .sessionManagement((auth) -> auth
                         .maximumSessions(1)
-                        .maxSessionsPreventsLogin(true))
+                        .maxSessionsPreventsLogin(false))
 
                 .authorizeHttpRequests((authorize) -> authorize
                         .requestMatchers("/test").authenticated()
@@ -26,17 +28,16 @@ public class SecurityConfig {
                         .anyRequest().permitAll()
                 )
 
+
+                .httpBasic(Customizer.withDefaults())
                 .formLogin(form -> form
-                        .loginPage("/login")
-                        .defaultSuccessUrl("/userInfo")
-                        .permitAll()
-                        .usernameParameter("email")
-                )
+                        .defaultSuccessUrl("/userInfo"))
 
                 .logout(logout -> logout
                         .logoutUrl("/logout")
-                        .logoutSuccessUrl("/login?logout")
+//                        .logoutSuccessUrl("/login?logout")
                         .deleteCookies("JSESSIONID"));
+
 
         return http.build();
     }
