@@ -3,12 +3,12 @@ package paengbeom.syono.util;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.time.Duration;
 
 @RequiredArgsConstructor
-@Service
+@Component
 public class RedisUtil {
 
     private final StringRedisTemplate template;

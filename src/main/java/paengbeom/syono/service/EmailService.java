@@ -22,12 +22,11 @@ public class EmailService {
     private final JavaMailSender mailSender;
     private final RedisUtil redisUtil;
 
-    private final int CertificationNumberLength = 6;
     @Value("${spring.data.redis.expiration.time}")
     private long EXPIRATION_TIME;
 
     public String createCertificationNumber() {
-        int upperLimit = (int) Math.pow(10, CertificationNumberLength);
+        int upperLimit = (int) Math.pow(10, 6);
         return String.valueOf(new SecureRandom().nextInt(upperLimit));
     }
 
@@ -65,7 +64,6 @@ public class EmailService {
     public boolean verifyEmail(String email, String certificationNumber) {
         boolean validatedEmail = redisUtil.isExistData(email);
         if (!validatedEmail) {
-            log.error("email not exist");
             throw new RuntimeException("email not exist");
         }
         return redisUtil.getData(email).equals(certificationNumber);

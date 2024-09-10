@@ -37,6 +37,11 @@ spring:
       password: ENC(HDRxoK2qiQWSkdiJX/FbJAcoB74kpAKX)
       expiration.time: 300
 
-jasypt:
-  encryptor:
-    password: ${ENCRYPT_KEY}
+coolsms:
+  api:
+    key: ENC(8OPB69vC8GJP+53rwqNDLTlDMY+qD5tx7SELupzw6QU=)
+    secret: ENC(JBe/BbCbF2g+piCNr3cAlItyyVYsX1qDw3ZSB9nVDh28sJECSIx/X3bimj2AkKmn)
+    from: ENC(LckUTxvkdVjS8cyVgAoHRBBA/6Ep2CgD)
+    domain: https://api.coolsms.co.kr
+
+jasypt.encryptor.password: ${ENCRYPT_KEY}
