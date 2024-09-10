@@ -18,6 +18,7 @@ bin/
 !**/src/test/**/bin/
 
 ### IntelliJ IDEA ###
+.run
 .idea
 *.iws
 *.iml
@@ -35,6 +36,3 @@ out/
 
 ### VS Code ###
 .vscode/
-
-### 확장자 .properties 무시 ###
-*.properties
