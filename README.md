@@ -3,6 +3,9 @@
 > 1. Docker에서 MySql 실행
 > 2. Docker에서 Redis 실행
 > 3. jasypt.encryptor.password 주입
+> 4. 도움되는 명령어
+
+#### ℹ️ 1-2는 처음만 명령어를 입력하면 된다. 이후 -d옵션으로 백그라운드에서 자동 실행
 
 ## 1. Docker에서 MySql 실행
 
@@ -13,9 +16,10 @@ docker pull mysql:latest
 # MySql 컨테이너 생성 및 실행
 docker run --name mysql-container -e MYSQL_ROOT_PASSWORD=<password> -d -p 3306:3306 mysql:latest
 
-# MySql 컨테이너 접속
+# MySql 컨테이너 접속 및 DB 생성
 docker exec -it mysql-container mysql -u root -p
 Enter password: <password>
+mysql> CREATE DATABASE SYONO;
 ```
 
 ## 2. Docker에서 Redis 실행
@@ -26,10 +30,6 @@ docker pull redis:latest
 
 # Redis 컨테이너 생성 및 실행
 docker run --name redis-container -d -p 6379:6379 redis:latest --requirepass <password>
-
-# Redis 컨테이너 접속
-docker exec -it redis-container redis-cli
-127.0.0.1:6379> AUTH <password>
 ```
 
 ## 3. jasypt.encryptor.password 주입
@@ -40,7 +40,7 @@ docker exec -it redis-container redis-cli
 export ENCRYPT_KEY=<encrypt-key-value>
 ```
 
-> 도움되는 명령어(컨테이너 이름 대신 id를 입력해도 된다)
+## 4. 도움되는 명령어(컨테이너 이름 대신 id를 입력해도 된다)
 
 ```bash
 # Docker 이미지 확인 명령어
