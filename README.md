@@ -17,7 +17,7 @@ docker pull mysql:latest
 docker run --name mysql-container -e MYSQL_ROOT_PASSWORD=<password> -d -p 3306:3306 mysql:latest
 
 # MySql 컨테이너 접속 및 DB 생성
-docker docker exec -it mysql-container mysql -u root -p
+docker exec -it mysql-container mysql -u root -p
 Enter password: <password>
 mysql> CREATE DATABASE SYONO;
 ```
