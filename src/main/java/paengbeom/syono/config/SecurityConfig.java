@@ -2,13 +2,12 @@ package paengbeom.syono.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
+import org.springframework.security.web.session.HttpSessionEventPublisher;
 
 @Configuration
 @EnableWebSecurity
@@ -18,9 +17,11 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
 
-                .sessionManagement((auth) -> auth
+                .sessionManagement((session) -> session
+                        .sessionFixation().changeSessionId()
                         .maximumSessions(1)
-                        .maxSessionsPreventsLogin(false))
+                        .maxSessionsPreventsLogin(false)
+                )
 
                 .authorizeHttpRequests((authorize) -> authorize
                         .requestMatchers("/test").authenticated()
@@ -28,18 +29,21 @@ public class SecurityConfig {
                         .anyRequest().permitAll()
                 )
 
-
-                .httpBasic(Customizer.withDefaults())
                 .formLogin(form -> form
                         .defaultSuccessUrl("/userInfo"))
 
                 .logout(logout -> logout
                         .logoutUrl("/logout")
-//                        .logoutSuccessUrl("/login?logout")
+//                        .logoutSuccessUrl("/login?logout").
                         .deleteCookies("JSESSIONID"));
 
 
         return http.build();
+    }
+
+    @Bean
+    public HttpSessionEventPublisher httpSessionEventPublisher() {
+        return new HttpSessionEventPublisher();
     }
 
     @Bean
