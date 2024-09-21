@@ -64,4 +64,6 @@ public class UserService implements UserDetailsService {
         }
         return redisUtil.getData(phone).equals(certificationNumber);
     }
+
+
 }

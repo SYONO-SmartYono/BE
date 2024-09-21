@@ -13,7 +13,7 @@ import paengbeom.syono.dto.EmailCertificationResponseDto;
 import paengbeom.syono.service.EmailService;
 
 @Slf4j
-@RequestMapping("/api/email")
+@RequestMapping("/email")
 @Controller
 @RequiredArgsConstructor
 public class EmailController {

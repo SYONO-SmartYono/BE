@@ -44,4 +44,10 @@ coolsms:
     from: ENC(LckUTxvkdVjS8cyVgAoHRBBA/6Ep2CgD)
     domain: https://api.coolsms.co.kr
 
+codef:
+  sandbox:
+    client-id: ef27cfaa-10c1-4470-adac-60ba476273f9
+    client-secret: 83160c33-9045-4915-86d8-809473cdf5c3
+    public-key: ENC(Fv8Q7iP9rYnLMLywBEIucONbFVVIpfMbtjMJrQmc+D3LWQ2XUfpjcE2j8UYDU2MT/YpX5Mb2CfJY8/0e22BP1xos3DWEVVHi3kovkmTPvmdd1oc2Zn+92Um4Z+OmJB3xpepkp3SwEr9zbdliyS3/nlk8yojWyrzhjKmsJAcpjrcjA0lTRjR/gk8hrTsa25byAgWn552B02lez4k3fh2wMZSYgmhFSBcYiC9jdT2jjRJiMDFbsnq/V9jRj379abB095yilfh3eV/ZmTO+8EF922kxr2HCyNHfNIf7jTwrxTmfw/gRBZhAbaR8rVgNgKwwPYhLDWZGZreCNR4hCTR6oD9gG51PDoizsaqsWJr+G4IJRayoCl5OfYeWqRX4zLCWAEGfqqh1rP8LZqLUAKNAXrcTLJ3S5eycXkjyv4CTvLWQPDfbJpNelu7O0KgcmCBlCoR/1uE9L5PdkRDzW4xaRyMCtkt/FvLpzS3J9zaDeYRc0jOvDjTa9OFh/90QyZlCYxNp7yD96nUWy2FxV39dRFmjsAsCaBO6)
+
 jasypt.encryptor.password: ${ENCRYPT_KEY}

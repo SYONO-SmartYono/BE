@@ -9,22 +9,19 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import paengbeom.syono.dto.SmSCertificationRequestDto;
 import paengbeom.syono.dto.SmsCertificationResponseDto;
 import paengbeom.syono.service.UserService;
 
-@Controller
 @Slf4j
+@RequestMapping("/user")
+@Controller
 public class UserController {
     private final UserService userService;
 
     public UserController(UserService userService) {
         this.userService = userService;
-    }
-
-    @GetMapping("/login")
-    public String login() {
-        return "login"; // 로그인 페이지의 템플릿 이름
     }
 
     @GetMapping("/userInfo")
@@ -50,4 +47,6 @@ public class UserController {
         boolean available = userService.verifySms(smsResponseDto.getPhoneNumber(), smsResponseDto.getCertificationNumber());
         return ResponseEntity.ok().body(available);
     }
+
+
 }
