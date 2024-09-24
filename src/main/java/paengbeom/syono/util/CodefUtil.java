@@ -6,9 +6,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.jasypt.contrib.org.apache.commons.codec_1_3.binary.Base64;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
-import paengbeom.syono.dto.CodefAccountListDto;
+import paengbeom.syono.dto.CodefAccountListResponseDto;
+import paengbeom.syono.dto.CodefAccountRequestDto;
+import paengbeom.syono.dto.CodefApiResponseDto;
 import paengbeom.syono.dto.CodefCreateAccountDto;
 import reactor.core.publisher.Mono;
 
@@ -109,7 +112,7 @@ public class CodefUtil {
         }
     }
 
-    public Mono<String> CreateConnectedId(CodefAccountListDto accountInfo) {
+    public Mono<String> createConnectedId(CodefAccountRequestDto accountInfo) {
         log.info("accoutInfo = {}", accountInfo);
         Map<String, List<Map<String, String>>> bodyMap = new HashMap<>();
         List<Map<String, String>> accountList = new ArrayList<>();
@@ -118,7 +121,7 @@ public class CodefUtil {
         accountMap.put("countryCode", "KR");
         accountMap.put("businessType", accountInfo.getBusinessType());
         accountMap.put("clientType", "P");
-        accountMap.put("organization", accountInfo.getCode());
+        accountMap.put("organization", accountInfo.getOrganization());
         accountMap.put("loginType", "1");
         accountMap.put("id", accountInfo.getId());
         try {
@@ -134,12 +137,139 @@ public class CodefUtil {
                 .uri(CREATE_ACCOUNT)
                 .body(Mono.just(bodyMap), Map.class)
                 .retrieve()
-                .bodyToMono(CodefCreateAccountDto.class)
-                .map(CodefCreateAccountDto::getConnectedId);
+                .bodyToMono(new ParameterizedTypeReference<CodefApiResponseDto<CodefCreateAccountDto>>() {
+                })
+                .map(responseDto -> {
+                    CodefCreateAccountDto data = responseDto.getData();
+                    log.info("data = {}", data);
+                    return data.getConnectedId();
+                });
+    }
+
+    public Mono<String> addAccount(CodefAccountRequestDto accountInfo, String connectedId) {
+        log.info("accoutInfo = {}", accountInfo);
+        Map<String, Object> bodyMap = new HashMap<>();
+        List<Map<String, String>> accountList = new ArrayList<>();
+
+        HashMap<String, String> accountMap = new HashMap<>();
+        accountMap.put("countryCode", "KR");
+        accountMap.put("businessType", accountInfo.getBusinessType());
+        accountMap.put("clientType", "P");
+        accountMap.put("organization", accountInfo.getOrganization());
+        accountMap.put("loginType", "1");
+        accountMap.put("id", accountInfo.getId());
+        try {
+            accountMap.put("password", encryptRSA(accountInfo.getPassword(), PUBLIC_KEY));
+        } catch (Exception e) {
+            throw new RuntimeException("비밀번호 암호화에 실패했습니다.", e);
+        }
+
+        accountList.add(accountMap);
+        bodyMap.put("accountList", accountList);
+        bodyMap.put("connectedId", connectedId);
+
+        return webClient.post()
+                .uri(ADD_ACCOUNT)
+                .body(Mono.just(bodyMap), Map.class)
+                .retrieve()
+                .bodyToMono(new ParameterizedTypeReference<CodefApiResponseDto<CodefCreateAccountDto>>() {
+                })
+                .map(responseDto -> {
+                    CodefCreateAccountDto data = responseDto.getData();
+                    log.info("data = {}", data);
+                    return data.getConnectedId();
+                });
+    }
+
+    public Mono<String> updateAccount(CodefAccountRequestDto accountInfo, String connectedId) {
+        log.info("accoutInfo = {}", accountInfo);
+        Map<String, Object> bodyMap = new HashMap<>();
+        List<Map<String, String>> accountList = new ArrayList<>();
+
+        HashMap<String, String> accountMap = new HashMap<>();
+        accountMap.put("countryCode", "KR");
+        accountMap.put("businessType", accountInfo.getBusinessType());
+        accountMap.put("clientType", "P");
+        accountMap.put("organization", accountInfo.getOrganization());
+        accountMap.put("loginType", "1");
+        accountMap.put("id", accountInfo.getId());
+        try {
+            accountMap.put("password", encryptRSA(accountInfo.getPassword(), PUBLIC_KEY));
+        } catch (Exception e) {
+            throw new RuntimeException("비밀번호 암호화에 실패했습니다.", e);
+        }
+
+        accountList.add(accountMap);
+        bodyMap.put("accountList", accountList);
+        bodyMap.put("connectedId", connectedId);
+
+        return webClient.post()
+                .uri(UPDATE_ACCOUNT)
+                .body(Mono.just(bodyMap), Map.class)
+                .retrieve()
+                .bodyToMono(new ParameterizedTypeReference<CodefApiResponseDto<CodefCreateAccountDto>>() {
+                })
+                .map(responseDto -> {
+                    CodefCreateAccountDto data = responseDto.getData();
+                    log.info("data = {}", data);
+                    return data.getConnectedId();
+                });
+    }
+
+    public Mono<List<Map<String, String>>> getAccountList(String connectedId) {
+        log.info("connectedId = {}", connectedId);
+
+        return webClient.post()
+                .uri(GET_ACCOUNTS)
+                .body(Mono.just(connectedId), String.class)
+                .retrieve()
+                .bodyToMono(new ParameterizedTypeReference<CodefApiResponseDto<CodefAccountListResponseDto>>() {
+                })
+                .map(responseDto -> {
+                    CodefAccountListResponseDto data = responseDto.getData();
+                    log.info("data = {}", data);
+                    return data.getAccountList();
+                });
+    }
+
+    public Mono<String> deleteAccount(CodefAccountRequestDto accountInfo, String connectedId) {
+        log.info("accoutInfo = {}", accountInfo);
+        Map<String, Object> bodyMap = new HashMap<>();
+        List<Map<String, String>> accountList = new ArrayList<>();
+
+        HashMap<String, String> accountMap = new HashMap<>();
+        accountMap.put("countryCode", "KR");
+        accountMap.put("businessType", accountInfo.getBusinessType());
+        accountMap.put("clientType", "P");
+        accountMap.put("organization", accountInfo.getOrganization());
+        accountMap.put("loginType", "1");
+        accountMap.put("id", accountInfo.getId());
+        try {
+            accountMap.put("password", encryptRSA(accountInfo.getPassword(), PUBLIC_KEY));
+        } catch (Exception e) {
+            throw new RuntimeException("비밀번호 암호화에 실패했습니다.", e);
+        }
+
+        accountList.add(accountMap);
+        bodyMap.put("accountList", accountList);
+        bodyMap.put("connectedId", connectedId);
+
+        return webClient.post()
+                .uri(DELETE_ACCOUNT)
+                .body(Mono.just(bodyMap), Map.class)
+                .retrieve()
+                .bodyToMono(new ParameterizedTypeReference<CodefApiResponseDto<CodefCreateAccountDto>>() {
+                })
+                .map(responseDto -> {
+                    CodefCreateAccountDto data = responseDto.getData();
+                    log.info("data = {}", data);
+                    return data.getConnectedId();
+                });
     }
 
     private String encryptRSA(String planText, String base64PublicKey) throws NoSuchAlgorithmException, InvalidKeySpecException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
 
+        log.info("planText = {}", planText);
         byte[] bytePublicKey = java.util.Base64.getDecoder().decode(base64PublicKey);
         KeyFactory keyFactory = KeyFactory.getInstance("RSA");
         PublicKey publicKey = keyFactory.generatePublic(new X509EncodedKeySpec(bytePublicKey));

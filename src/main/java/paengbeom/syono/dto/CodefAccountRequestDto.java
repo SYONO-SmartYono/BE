@@ -8,8 +8,8 @@ import lombok.ToString;
 @Getter
 @Builder
 @ToString
-public class CodefAccountListDto {
-    private String code;
+public class CodefAccountRequestDto {
+    private String organization;
     private String businessType;
     private String id;
     private String password;

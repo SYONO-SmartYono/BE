@@ -15,7 +15,6 @@ public class CodefApiConstant {
     public static final String KR_CD_P_005 = "/kr/card/p/account/result-check-list";                    // 카드 개인 실적조회
     public static final String KR_CD_P_006 = "/kr/card/p/user/registration-status";                    // 카드 개인 등록 여부 조회
 
-    public static final String GET_CONNECTED_IDS = "/account/connectedId-list";                        // 커넥티드아이디 목록 조회
     public static final String GET_ACCOUNTS = "/account/list";                                            // 계정 목록 조회
     public static final String CREATE_ACCOUNT = "/account/create";                                        // 계정 등록(커넥티드아이디 발급)
     public static final String ADD_ACCOUNT = "/account/add";                                                // 계정 추가
