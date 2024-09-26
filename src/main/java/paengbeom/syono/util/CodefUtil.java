@@ -10,7 +10,7 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import paengbeom.syono.dto.CodefAccountListResponseDto;
-import paengbeom.syono.dto.CodefAccountRequestDto;
+import paengbeom.syono.dto.user.CodefAccountRequestDto;
 import paengbeom.syono.dto.CodefApiResponseDto;
 import paengbeom.syono.dto.CodefCreateAccountDto;
 import reactor.core.publisher.Mono;
@@ -216,22 +216,6 @@ public class CodefUtil {
                 });
     }
 
-    public Mono<List<Map<String, String>>> getAccountList(String connectedId) {
-        log.info("connectedId = {}", connectedId);
-
-        return webClient.post()
-                .uri(GET_ACCOUNTS)
-                .body(Mono.just(connectedId), String.class)
-                .retrieve()
-                .bodyToMono(new ParameterizedTypeReference<CodefApiResponseDto<CodefAccountListResponseDto>>() {
-                })
-                .map(responseDto -> {
-                    CodefAccountListResponseDto data = responseDto.getData();
-                    log.info("data = {}", data);
-                    return data.getAccountList();
-                });
-    }
-
     public Mono<String> deleteAccount(CodefAccountRequestDto accountInfo, String connectedId) {
         log.info("accoutInfo = {}", accountInfo);
         Map<String, Object> bodyMap = new HashMap<>();
@@ -264,6 +248,22 @@ public class CodefUtil {
                     CodefCreateAccountDto data = responseDto.getData();
                     log.info("data = {}", data);
                     return data.getConnectedId();
+                });
+    }
+
+    public Mono<List<Map<String, String>>> getAccountList(String connectedId) {
+        log.info("connectedId = {}", connectedId);
+
+        return webClient.post()
+                .uri(GET_ACCOUNTS)
+                .body(Mono.just(connectedId), String.class)
+                .retrieve()
+                .bodyToMono(new ParameterizedTypeReference<CodefApiResponseDto<CodefAccountListResponseDto>>() {
+                })
+                .map(responseDto -> {
+                    CodefAccountListResponseDto data = responseDto.getData();
+                    log.info("data = {}", data);
+                    return data.getAccountList();
                 });
     }
 

@@ -1,4 +1,4 @@
-package paengbeom.syono.dto;
+package paengbeom.syono.dto.user;
 
 
 import lombok.Builder;
