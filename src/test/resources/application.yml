@@ -2,7 +2,7 @@ logging:
   level:
     org.hibernate.SQL: DEBUG
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
-#    root: DEBUG
+    org.springframework.security: DEBUG
 
 spring:
   datasource:
@@ -16,6 +16,32 @@ spring:
       ddl-auto: update
     show-sql: true
 
-jasypt:
-  encryptor:
-    password: ${ENCRYPT_KEY}
+  mail:
+    protocol: smtp
+    host: smtp.gmail.com
+    port: 587
+    username: ENC(BqGp9KuA0J/mD+gICtrtGB47pb2caohYXo9LQYt9Qmo=)
+    password: ENC(ShJVYZYLqhAbls2M80xQsuXtTYnpPUEWAkKncu7TqZU=)
+    properties:
+      mail:
+        smtp:
+          auth: true
+          timeout: 5000
+          starttls.enable: true
+          debug: true
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password: ENC(HDRxoK2qiQWSkdiJX/FbJAcoB74kpAKX)
+      expiration.time: 300
+
+coolsms:
+  api:
+    key: ENC(8OPB69vC8GJP+53rwqNDLTlDMY+qD5tx7SELupzw6QU=)
+    secret: ENC(JBe/BbCbF2g+piCNr3cAlItyyVYsX1qDw3ZSB9nVDh28sJECSIx/X3bimj2AkKmn)
+    from: ENC(LckUTxvkdVjS8cyVgAoHRBBA/6Ep2CgD)
+    domain: https://api.coolsms.co.kr
+
+jasypt.encryptor.password: ${ENCRYPT_KEY}
