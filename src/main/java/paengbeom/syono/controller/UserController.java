@@ -1,16 +1,16 @@
 package paengbeom.syono.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import paengbeom.syono.dto.SmSCertificationRequestDto;
 import paengbeom.syono.dto.SmsCertificationResponseDto;
 import paengbeom.syono.dto.user.CodefAccountRequestDto;
+import paengbeom.syono.exception.CustomException;
+import paengbeom.syono.exception.ExceptionResponseCode;
 import paengbeom.syono.service.UserService;
 import paengbeom.syono.util.CodefUtil;
 import reactor.core.publisher.Mono;
@@ -29,14 +29,9 @@ public class UserController {
     @Value("${codef.sandbox.connected-id}")
     private String CONNECTED_ID;
 
-    @GetMapping("/userInfo")
-    public String userInfo(Model model, @AuthenticationPrincipal UserDetails userDetails) {
-        log.info("user={}", userDetails);
-        // 사용자 정보를 모델에 추가
-        model.addAttribute("email", userDetails.getUsername());
-        model.addAttribute("authorities", userDetails.getAuthorities());
-
-        return "userInfo"; // 사용자 정보 페이지의 템플릿 이름
+    @GetMapping("/test")
+    public ResponseEntity<?> sendSmsForJoin() {
+        throw new CustomException(ExceptionResponseCode.NOT_EXISTED_EMAIL.getCode(), ExceptionResponseCode.NOT_EXISTED_EMAIL.getMessage());
     }
 
     @PostMapping("/send-certificationSms")
@@ -61,7 +56,7 @@ public class UserController {
      * @return 계정 등록 결과를 담은 문자열을 Mono로 반환
      */
     @PostMapping("/accounts/create")
-    public Mono<String> createAccount(@RequestBody CodefAccountRequestDto codefAccountRequestDto) {
+    public Mono<String> createAccount(@Valid @RequestBody CodefAccountRequestDto codefAccountRequestDto) {
         return codefUtil.createConnectedId(codefAccountRequestDto);
     }
 
