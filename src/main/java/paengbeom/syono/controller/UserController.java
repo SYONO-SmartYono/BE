@@ -6,11 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import paengbeom.syono.dto.SmSCertificationRequestDto;
-import paengbeom.syono.dto.SmsCertificationResponseDto;
 import paengbeom.syono.dto.user.CodefAccountRequestDto;
-import paengbeom.syono.exception.CustomException;
-import paengbeom.syono.exception.ExceptionResponseCode;
 import paengbeom.syono.service.UserService;
 import paengbeom.syono.util.CodefUtil;
 import reactor.core.publisher.Mono;
@@ -29,25 +25,10 @@ public class UserController {
     @Value("${codef.sandbox.connected-id}")
     private String CONNECTED_ID;
 
-    @GetMapping("/test")
-    public ResponseEntity<?> sendSmsForJoin() {
-        throw new CustomException(ExceptionResponseCode.NOT_EXISTED_EMAIL.getCode(), ExceptionResponseCode.NOT_EXISTED_EMAIL.getMessage());
+    @PostMapping("/signup")
+    public ResponseEntity<?> signup(@Valid @RequestBody CodefAccountRequestDto codefAccountRequestDto) {
+        return null;
     }
-
-    @PostMapping("/send-certificationSms")
-    public ResponseEntity<?> sendSmsForJoin(@ModelAttribute SmSCertificationRequestDto smsRequestDto) {
-        log.info("smsRequestDto = {}", smsRequestDto);
-        String certificationNumber = userService.sendSmsForCertification(smsRequestDto.getPhoneNumber());
-        return ResponseEntity.ok().body(certificationNumber);
-    }
-
-    @PostMapping("/verifySms")
-    public ResponseEntity<?> verifyCertificationNumber(@ModelAttribute SmsCertificationResponseDto smsResponseDto) {
-        log.info("smsResponseDto = {}", smsResponseDto);
-        boolean available = userService.verifySms(smsResponseDto.getPhoneNumber(), smsResponseDto.getCertificationNumber());
-        return ResponseEntity.ok().body(available);
-    }
-
 
     /**
      * 새로운 계정을 등록하는 메서드.

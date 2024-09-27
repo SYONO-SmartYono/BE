@@ -34,7 +34,7 @@ public class ExceptionControllerAdvice extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleHttpRequestMethodNotSupported(HttpRequestMethodNotSupportedException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
         logger.info("handleHttpRequestMethodNotSupported : ", ex);
         return new ResponseEntity<>(new ErrorResult(status.value(), "적합한 HTTP Method로 요청해주세요."),
-                HttpStatus.BAD_REQUEST
+                HttpStatus.METHOD_NOT_ALLOWED
         );
     }
 

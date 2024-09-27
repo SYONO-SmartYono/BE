@@ -8,8 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import paengbeom.syono.dto.SecurityUserDto;
-import paengbeom.syono.dto.UserFormDto;
-import paengbeom.syono.entity.Role;
+import paengbeom.syono.dto.SignUpRequestDto;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -33,7 +32,7 @@ public interface UserMapper {
     @Mapping(target = "role", expression = "java(Role.ROLE_USER)")
     @Mapping(target = "profileImg", expression = "java(\"defaultProfileImg\")")
     @Mapping(target = "lastLogin", ignore = true)
-    User userFormDtoToUser(UserFormDto userFormDto);
+    User userFormDtoToUser(SignUpRequestDto signUpRequestDto);
 
     @Named("mapRoleToAuthorities")
     default Collection<? extends GrantedAuthority> mapRoleToAuthorities(Role role) {

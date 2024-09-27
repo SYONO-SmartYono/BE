@@ -3,6 +3,7 @@ logging:
     org.hibernate.SQL: DEBUG
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
     org.springframework.security: DEBUG
+#    web: debug
 
 spring:
   datasource:
@@ -35,7 +36,8 @@ spring:
       host: localhost
       port: 6379
       password: ENC(HDRxoK2qiQWSkdiJX/FbJAcoB74kpAKX)
-      expiration.time: 300
+      before.expiration.time: 300
+      after.expiration.time: 86400
 
 coolsms:
   api:

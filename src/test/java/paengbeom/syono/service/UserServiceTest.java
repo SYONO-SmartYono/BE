@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import paengbeom.syono.dto.SecurityUserDto;
-import paengbeom.syono.dto.UserFormDto;
+import paengbeom.syono.dto.SignUpRequestDto;
 import paengbeom.syono.entity.Role;
 import paengbeom.syono.entity.User;
 import paengbeom.syono.repository.UserRepository;
@@ -47,17 +47,17 @@ class UserServiceTest {
     @Test
     @DisplayName("회원가입 테스트")
     void testSignUp() {
-        UserFormDto userFormDto = UserFormDto.builder()
+        SignUpRequestDto signUpRequestDto = SignUpRequestDto.builder()
                 .email("testEmail@email.com")
                 .password("password")
                 .phone("01044443333")
                 .connectedId("connectedId")
                 .build();
 
-        String res = userService.signUp(userFormDto);
+        String res = userService.signUp(signUpRequestDto);
         log.info("res={}", res);
 
-        User savedUser = userRepository.findByEmail(userFormDto.getEmail()).get();
+        User savedUser = userRepository.findByEmail(signUpRequestDto.getEmail()).get();
         log.info("savedUser={}", savedUser);
     }
 }
