@@ -1,4 +1,4 @@
-package paengbeom.syono.dto;
+package paengbeom.syono.dto.codef;
 
 import lombok.Builder;
 import lombok.Getter;

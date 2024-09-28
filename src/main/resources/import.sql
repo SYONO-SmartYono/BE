@@ -1,33 +1,30 @@
-INSERT
-IGNORE INTO COMPANY (NAME, CODE, TYPE)
-VALUES
-    ('산업은행', '0002', 'BK'),
-    ('기업은행', '0003', 'BK'),
-    ('국민은행', '0004', 'BK'),
-    ('수협은행', '0007', 'BK'),
-    ('농협은행', '0011', 'BK'),
-    ('우리은행', '0020', 'BK'),
-    ('SC은행', '0023', 'BK'),
-    ('씨티은행', '0027', 'BK'),
-    ('대구은행', '0031', 'BK'),
-    ('부산은행', '0032', 'BK'),
-    ('광주은행', '0034', 'BK'),
-    ('제주은행', '0035', 'BK'),
-    ('전북은행', '0037', 'BK'),
-    ('경남은행', '0039', 'BK'),
-    ('새마을금고', '0045', 'BK'),
-    ('신협은행', '0048', 'BK'),
-    ('우체국', '0071', 'BK'),
-    ('KEB하나은행', '0081', 'BK'),
-    ('신한은행', '0088', 'BK'),
-    ('KB카드', '0301', 'CD'),
-    ('현대카드', '0302', 'CD'),
-    ('삼성카드', '0303', 'CD'),
-    ('NH카드', '0304', 'CD'),
-    ('BC카드', '0305', 'CD'),
-    ('신한카드', '0306', 'CD'),
-    ('씨티카드', '0307', 'CD'),
-    ('우리카드', '0309', 'CD'),
-    ('롯데카드', '0311', 'CD'),
-    ('하나카드', '0313', 'CD'),
-    ('전북카드', '0315', 'CD');
+INSERT IGNORE INTO company (NAME, CODE, TYPE) VALUE ('산업은행', '0002', 'BK');
+INSERT IGNORE INTO company (NAME, CODE, TYPE) VALUE ('기업은행', '0003', 'BK');
+INSERT IGNORE INTO company (NAME, CODE, TYPE) VALUE ('국민은행', '0004', 'BK');
+INSERT IGNORE INTO company (NAME, CODE, TYPE) VALUE ('수협은행', '0007', 'BK');
+INSERT IGNORE INTO company (NAME, CODE, TYPE) VALUE ('농협은행', '0011', 'BK');
+INSERT IGNORE INTO company (NAME, CODE, TYPE) VALUE ('우리은행', '0020', 'BK');
+INSERT IGNORE INTO company (NAME, CODE, TYPE) VALUE ('SC은행', '0023', 'BK');
+INSERT IGNORE INTO company (NAME, CODE, TYPE) VALUE ('씨티은행', '0027', 'BK');
+INSERT IGNORE INTO company (NAME, CODE, TYPE) VALUE ('대구은행', '0031', 'BK');
+INSERT IGNORE INTO company (NAME, CODE, TYPE) VALUE ('부산은행', '0032', 'BK');
+INSERT IGNORE INTO company (NAME, CODE, TYPE) VALUE ('광주은행', '0034', 'BK');
+INSERT IGNORE INTO company (NAME, CODE, TYPE) VALUE ('제주은행', '0035', 'BK');
+INSERT IGNORE INTO company (NAME, CODE, TYPE) VALUE ('전북은행', '0037', 'BK');
+INSERT IGNORE INTO company (NAME, CODE, TYPE) VALUE ('경남은행', '0039', 'BK');
+INSERT IGNORE INTO company (NAME, CODE, TYPE) VALUE ('새마을금고', '0045', 'BK');
+INSERT IGNORE INTO company (NAME, CODE, TYPE) VALUE ('신협은행', '0048', 'BK');
+INSERT IGNORE INTO company (NAME, CODE, TYPE) VALUE ('우체국', '0071', 'BK');
+INSERT IGNORE INTO company (NAME, CODE, TYPE) VALUE ('KEB하나은행', '0081', 'BK');
+INSERT IGNORE INTO company (NAME, CODE, TYPE) VALUE ('신한은행', '0088', 'BK');
+INSERT IGNORE INTO company (NAME, CODE, TYPE) VALUE ('KB카드', '0301', 'CD');
+INSERT IGNORE INTO company (NAME, CODE, TYPE) VALUE ('현대카드', '0302', 'CD');
+INSERT IGNORE INTO company (NAME, CODE, TYPE) VALUE ('삼성카드', '0303', 'CD');
+INSERT IGNORE INTO company (NAME, CODE, TYPE) VALUE ('NH카드', '0304', 'CD');
+INSERT IGNORE INTO company (NAME, CODE, TYPE) VALUE ('BC카드', '0305', 'CD');
+INSERT IGNORE INTO company (NAME, CODE, TYPE) VALUE ('신한카드', '0306', 'CD');
+INSERT IGNORE INTO company (NAME, CODE, TYPE) VALUE ('씨티카드', '0307', 'CD');
+INSERT IGNORE INTO company (NAME, CODE, TYPE) VALUE ('우리카드', '0309', 'CD');
+INSERT IGNORE INTO company (NAME, CODE, TYPE) VALUE ('롯데카드', '0311', 'CD');
+INSERT IGNORE INTO company (NAME, CODE, TYPE) VALUE ('하나카드', '0313', 'CD');
+INSERT IGNORE INTO company (NAME, CODE, TYPE) VALUE ('전북카드', '0315', 'CD');

@@ -1,2 +1,12 @@
-package paengbeom.syono.dto.codef;public class CreateAccountResponseDto {
+package paengbeom.syono.dto.codef;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+public class CreateAccountResponseDto {
+    private boolean success;
 }

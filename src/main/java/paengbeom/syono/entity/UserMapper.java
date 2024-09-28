@@ -8,7 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import paengbeom.syono.dto.SecurityUserDto;
-import paengbeom.syono.dto.SignUpRequestDto;
+import paengbeom.syono.dto.user.SignUpRequestDto;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -27,7 +27,7 @@ public interface UserMapper {
     @Mapping(source = "email", target = "email")
     @Mapping(source = "password", target = "password", qualifiedByName = "encryptPassword")
     @Mapping(source = "phone", target = "phone")
-    @Mapping(source = "connectedId", target = "connectedId")
+    @Mapping(target = "connectedId", ignore = true)
     @Mapping(target = "nickname", expression = "java(\"defaultNickname\")")
     @Mapping(target = "role", expression = "java(Role.ROLE_USER)")
     @Mapping(target = "profileImg", expression = "java(\"defaultProfileImg\")")
