@@ -18,7 +18,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
 
                 .sessionManagement((session) -> session
-                        .sessionFixation().changeSessionId()
+//                        .sessionFixation().changeSessionId()
                         .maximumSessions(1)
                         .maxSessionsPreventsLogin(false)
                 )
@@ -30,10 +30,11 @@ public class SecurityConfig {
                 )
 
                 .formLogin(form -> form
-                        .defaultSuccessUrl("/userInfo"))
+                        .usernameParameter("email")
+                        .loginProcessingUrl("/user/signin"))
 
                 .logout(logout -> logout
-                        .logoutUrl("/logout")
+                        .logoutUrl("/user/logout")
 //                        .logoutSuccessUrl("/login?logout").
                         .deleteCookies("JSESSIONID"));
 

@@ -32,7 +32,7 @@ public class UserController {
     private String CONNECTED_ID;
 
     @PostMapping("/signup")
-    public ResponseEntity<?> signup(@Valid @RequestBody SignUpRequestDto signUpRequestDto) {
+    public ResponseEntity<?> signUp(@Valid @RequestBody SignUpRequestDto signUpRequestDto) {
         log.info("signup: {}", signUpRequestDto);
         SignUpResponseDto signUpResponseDto = userService.signUp(signUpRequestDto.getEmail(), signUpRequestDto.getPassword(), signUpRequestDto.getPhone());
         return new ResponseEntity<>(signUpResponseDto, HttpStatus.OK);
