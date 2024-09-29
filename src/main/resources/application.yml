@@ -3,6 +3,7 @@ logging:
     org.hibernate.SQL: DEBUG
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
     org.springframework.security: DEBUG
+#    web: debug
 
 spring:
   datasource:
@@ -35,7 +36,8 @@ spring:
       host: localhost
       port: 6379
       password: ENC(HDRxoK2qiQWSkdiJX/FbJAcoB74kpAKX)
-      expiration.time: 300
+      before.expiration.time: 300
+      after.expiration.time: 86400
 
 coolsms:
   api:
@@ -50,5 +52,7 @@ codef:
     client-secret: 83160c33-9045-4915-86d8-809473cdf5c3
     public-key: ENC(Fv8Q7iP9rYnLMLywBEIucONbFVVIpfMbtjMJrQmc+D3LWQ2XUfpjcE2j8UYDU2MT/YpX5Mb2CfJY8/0e22BP1xos3DWEVVHi3kovkmTPvmdd1oc2Zn+92Um4Z+OmJB3xpepkp3SwEr9zbdliyS3/nlk8yojWyrzhjKmsJAcpjrcjA0lTRjR/gk8hrTsa25byAgWn552B02lez4k3fh2wMZSYgmhFSBcYiC9jdT2jjRJiMDFbsnq/V9jRj379abB095yilfh3eV/ZmTO+8EF922kxr2HCyNHfNIf7jTwrxTmfw/gRBZhAbaR8rVgNgKwwPYhLDWZGZreCNR4hCTR6oD9gG51PDoizsaqsWJr+G4IJRayoCl5OfYeWqRX4zLCWAEGfqqh1rP8LZqLUAKNAXrcTLJ3S5eycXkjyv4CTvLWQPDfbJpNelu7O0KgcmCBlCoR/1uE9L5PdkRDzW4xaRyMCtkt/FvLpzS3J9zaDeYRc0jOvDjTa9OFh/90QyZlCYxNp7yD96nUWy2FxV39dRFmjsAsCaBO6)
     connected-id: byi1wYwD40k8hEIiXl6bRF
+
+default.profile.img: ENC(Akmb6DGJ8gxgjZuJbYqn8+wBo8SstV9+tl/x/DCjOkqsn+q4CQgUHdyW3QG4Galg6d/FZZS07XlFWsQqsLJSUKZHjYHb43U89L/r9HJd52j6+e46XnFOEt1liEnlTWXNhxw4w7xira5of7yIpE65zoYWxQQcFmGcSBIgMc3pqt7MlTYVG+kKhzf6Mm+Mm+UdI9Qu+ZYeSAwEq3UZM8OqkYOvKlvJW3kU)
 
 jasypt.encryptor.password: ${ENCRYPT_KEY}

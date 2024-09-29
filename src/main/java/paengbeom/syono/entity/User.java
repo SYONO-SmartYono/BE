@@ -34,7 +34,7 @@ public class User extends BaseEntiry {
     @Column(name = "ROLE", nullable = false)
     private Role role;
 
-    @Column(name = "CONNECTED_ID", nullable = false)
+    @Column(name = "CONNECTED_ID")
     private String connectedId;
 
     @Column(name = "PROFILE_IMG", nullable = false)
