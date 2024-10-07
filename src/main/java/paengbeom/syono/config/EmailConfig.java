@@ -13,28 +13,20 @@ public class EmailConfig {
 
     @Value("${spring.mail.protocol}")
     private String PROTOCOL;
-
     @Value("${spring.mail.host}")
     private String HOST;
-
     @Value("${spring.mail.port}")
     private int PORT;
-
     @Value("${spring.mail.username}")
     private String USERNAME;
-
     @Value("${spring.mail.password}")
     private String PASSWORD;
-
     @Value("${spring.mail.properties.mail.smtp.auth}")
     private String AUTH;
-
     @Value("${spring.mail.properties.mail.smtp.starttls.enable}")
     private String STARTTLS_ENABLE;
-
     @Value("${spring.mail.properties.mail.smtp.timeout}")
     private int TIMEOUT;
-
     @Value("${spring.mail.properties.mail.smtp.debug}")
     private boolean DEBUG;
 

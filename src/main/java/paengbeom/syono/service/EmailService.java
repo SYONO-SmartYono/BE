@@ -38,8 +38,9 @@ public class EmailService {
      * @return 6자리 인증번호
      */
     public String createCertificationCode() {
-        int upperLimit = (int) Math.pow(10, 6);
-        return String.valueOf(new SecureRandom().nextInt(upperLimit));
+        int lowerLimit = 100000;
+        int upperLimit = 999999;
+        return String.valueOf(new SecureRandom().nextInt(upperLimit - lowerLimit + 1) + lowerLimit);
     }
 
     /**
@@ -93,7 +94,7 @@ public class EmailService {
      * - 인증 번호가 일치하지 않으면 CustomException을 발생시킴 (유효하지 않은 인증 번호).
      * - 인증이 성공하면 해당 이메일을 "verified" 상태로 변경하고, 만료 시간을 AFTER_EXPIRATION_TIME으로 설정.
      *
-     * @param email 이메일 주소 (인증하려는 대상 이메일)
+     * @param email             이메일 주소 (인증하려는 대상 이메일)
      * @param certificationCode 사용자가 입력한 인증 번호
      * @return 인증 성공 시 true 반환
      * @throws CustomException 유효하지 않은 이메일이거나 인증 번호가 일치하지 않을 때 발생

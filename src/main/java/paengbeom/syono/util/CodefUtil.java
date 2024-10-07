@@ -13,7 +13,6 @@ import org.springframework.web.reactive.function.client.WebClient;
 import paengbeom.syono.dto.codef.CodefAccountListResponseDto;
 import paengbeom.syono.dto.codef.CodefApiResponseDto;
 import paengbeom.syono.dto.codef.CodefCreateAccountDto;
-import paengbeom.syono.dto.user.CodefAccountRequestDto;
 import paengbeom.syono.entity.Company;
 import paengbeom.syono.entity.ConnectedCompany;
 import paengbeom.syono.entity.User;
@@ -91,6 +90,7 @@ public class CodefUtil {
             byte[] authEncBytes = Base64.encodeBase64(auth.getBytes());
             String authStringEnc = new String(authEncBytes);
             String authHeader = "Basic " + authStringEnc;
+            log.info("authHeader : {}", authHeader);
 
             con.setRequestProperty("Authorization", authHeader);
             con.setDoInput(true);
@@ -130,10 +130,10 @@ public class CodefUtil {
     /**
      * 주어진 이메일과 회사 정보, ID, 비밀번호를 사용하여 연결된 계정을 생성합니다.
      *
-     * @param email 사용자의 이메일
+     * @param email       사용자의 이메일
      * @param companyName 회사 이름
-     * @param id 사용자 ID
-     * @param password 사용자 비밀번호
+     * @param id          사용자 ID
+     * @param password    사용자 비밀번호
      * @return 계정 생성 성공 여부를 나타내는 Mono<Boolean>
      */
     public Mono<Boolean> createConnectedId(String email, String companyName, String id, String password) {
@@ -165,13 +165,18 @@ public class CodefUtil {
 
         return webClient.post()
                 .uri(CREATE_ACCOUNT)
-                .body(Mono.just(bodyMap), Map.class)
+                .bodyValue(bodyMap)
                 .retrieve()
                 .bodyToMono(new ParameterizedTypeReference<CodefApiResponseDto<CodefCreateAccountDto>>() {
                 })
                 .map(responseDto -> {
                     CodefCreateAccountDto data = responseDto.getData();
                     log.info("data = {}", data);
+
+                    userRepository.save(
+                            user.toBuilder()
+                            .connectedId(data.getConnectedId())
+                            .build());
 
                     connectedCompanyRepository.save(
                             ConnectedCompany.builder()

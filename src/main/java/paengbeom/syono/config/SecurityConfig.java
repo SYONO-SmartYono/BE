@@ -8,10 +8,18 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
+import paengbeom.syono.util.LoginSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
+    private final LoginSuccessHandler loginSuccessHandler;
+
+    public SecurityConfig(LoginSuccessHandler loginSuccessHandler) {
+        this.loginSuccessHandler = loginSuccessHandler;
+    }
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -19,8 +27,8 @@ public class SecurityConfig {
 
                 .sessionManagement((session) -> session
 //                        .sessionFixation().changeSessionId()
-                        .maximumSessions(1)
-                        .maxSessionsPreventsLogin(false)
+                                .maximumSessions(1)
+                                .maxSessionsPreventsLogin(false)
                 )
 
                 .authorizeHttpRequests((authorize) -> authorize
@@ -30,8 +38,9 @@ public class SecurityConfig {
                 )
 
                 .formLogin(form -> form
+                        .loginProcessingUrl("/user/signin")
                         .usernameParameter("email")
-                        .loginProcessingUrl("/user/signin"))
+                        .successHandler(loginSuccessHandler))
 
                 .logout(logout -> logout
                         .logoutUrl("/user/logout")
