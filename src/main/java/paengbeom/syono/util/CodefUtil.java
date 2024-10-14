@@ -52,6 +52,7 @@ import static paengbeom.syono.util.CodefApiConstant.*;
 public class CodefUtil {
 
     private final UserRepository userRepository;
+    private final RedisUtil redisUtil;
     @Value("${codef.sandbox.public-key}")
     private String PUBLIC_KEY;
 
@@ -67,11 +68,12 @@ public class CodefUtil {
     private final ConnectedCompanyRepository connectedCompanyRepository;
 
     @Autowired
-    public CodefUtil(@Lazy WebClient webClient, CompanyRepository companyRepository, ConnectedCompanyRepository connectedCompanyRepository, UserRepository userRepository) {
+    public CodefUtil(@Lazy WebClient webClient, CompanyRepository companyRepository, ConnectedCompanyRepository connectedCompanyRepository, UserRepository userRepository, RedisUtil redisUtil) {
         this.webClient = webClient;
         this.companyRepository = companyRepository;
         this.connectedCompanyRepository = connectedCompanyRepository;
         this.userRepository = userRepository;
+        this.redisUtil = redisUtil;
     }
 
     public String publishToken() {
@@ -314,6 +316,13 @@ public class CodefUtil {
     }
 
     public List<CodefgetCardListDto> getCardList(String email, String companyName) {
+
+        List<CodefgetCardListDto> cardList = redisUtil.getCardList(email);
+        if (cardList.get(0) != null) {
+            log.info("캐시에서 카드리스트 반환");
+            return cardList;
+        }
+
         log.info("email: {}, companyName: {}", email, companyName);
         Company company = companyRepository.findByName(companyName)
                 .orElseThrow(() -> new CustomException(NOT_EXISTED_COMPANY.getCode(), NOT_EXISTED_COMPANY.getMessage()));
@@ -334,6 +343,7 @@ public class CodefUtil {
                 })
                 .map(responseDto -> {
                     log.info("CodefApiResponseDto = {}", responseDto);
+                    redisUtil.saveCardList(email, responseDto.getData());
                     return responseDto.getData();
                 })
                 .block();

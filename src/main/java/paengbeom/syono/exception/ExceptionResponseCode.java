@@ -25,7 +25,9 @@ public enum ExceptionResponseCode {
     ACCOUNT_CREATION_FAILURE("codef-4", "ConnectedId 생성에 실패했습니다."),
 
     NOT_ALLOWED("d-1", "권한이 업습니다."),
-    NOT_ADMIN("d-2", "관리자가 아닙니다.");
+    NOT_ADMIN("d-2", "관리자가 아닙니다."),
+
+    JSON_PROCESSING_FAILURE("json-1", "JSON 처리 중 오류가 발생했습니다.");
 
     private final String code;
     private final String message;
