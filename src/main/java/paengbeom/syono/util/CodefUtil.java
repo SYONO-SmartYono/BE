@@ -13,6 +13,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import paengbeom.syono.dto.codef.CodefAccountListResponseDto;
 import paengbeom.syono.dto.codef.CodefApiResponseDto;
 import paengbeom.syono.dto.codef.CodefCreateAccountDto;
+import paengbeom.syono.dto.codef.CodefgetCardListDto;
 import paengbeom.syono.entity.Company;
 import paengbeom.syono.entity.ConnectedCompany;
 import paengbeom.syono.entity.User;
@@ -175,8 +176,8 @@ public class CodefUtil {
 
                     userRepository.save(
                             user.toBuilder()
-                            .connectedId(data.getConnectedId())
-                            .build());
+                                    .connectedId(data.getConnectedId())
+                                    .build());
 
                     connectedCompanyRepository.save(
                             ConnectedCompany.builder()
@@ -310,6 +311,32 @@ public class CodefUtil {
                     log.info("data = {}", data);
                     return data.getAccountList();
                 });
+    }
+
+    public List<CodefgetCardListDto> getCardList(String email, String companyName) {
+        log.info("email: {}, companyName: {}", email, companyName);
+        Company company = companyRepository.findByName(companyName)
+                .orElseThrow(() -> new CustomException(NOT_EXISTED_COMPANY.getCode(), NOT_EXISTED_COMPANY.getMessage()));
+
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new CustomException(NOT_EXISTED_EMAIL.getCode(), NOT_EXISTED_EMAIL.getMessage()));
+
+        Map<String, String> bodyMap = new HashMap<>();
+        bodyMap.put("organization", company.getCode());
+        bodyMap.put("connectedId", user.getConnectedId());
+        bodyMap.put("inquiryType", "1");
+
+        return webClient.post()
+                .uri(KR_CD_P_001)
+                .bodyValue(bodyMap)
+                .retrieve()
+                .bodyToMono(new ParameterizedTypeReference<CodefApiResponseDto<List<CodefgetCardListDto>>>() {
+                })
+                .map(responseDto -> {
+                    log.info("CodefApiResponseDto = {}", responseDto);
+                    return responseDto.getData();
+                })
+                .block();
     }
 
     private String encryptRSA(String planText, String base64PublicKey) throws NoSuchAlgorithmException, InvalidKeySpecException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
